@@ -16,16 +16,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth import views as auth_views
+from django.contrib.auth import views as auth_views  
+from accounts.views import user_logout               
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # логін / логаут через вбудовані Django-в’юхи
-    path('login/',  auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path(
+        'login/',
+        auth_views.LoginView.as_view(template_name='accounts/login.html'),
+        name='login'
+    ),
 
-    # реєстрація
+    path('logout/', user_logout, name='logout'),
+
     path('accounts/', include('accounts.urls')),
+
+    path('schedule/', include('diary.urls')),
 ]
+
 
