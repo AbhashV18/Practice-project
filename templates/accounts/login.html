@@ -1,22 +1,40 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>Вхід</title>
-</head>
-<body>
-    <h1>Вхід</h1>
+{% extends "base.html" %}
 
-    {% if form.errors %}
-        <p style="color:red;">Невірний логін або пароль</p>
+{% block title %}Вхід | Щоденник студента{% endblock %}
+
+{% block content %}
+<h1>Вхід</h1>
+<p class="subtitle">Увійдіть до свого облікового запису.</p>
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label for="{{ form.username.id_for_label }}">Логін</label>
+        {{ form.username }}
+        {% if form.username.errors %}
+            {{ form.username.errors }}
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.password.id_for_label }}">Пароль</label>
+        {{ form.password }}
+        {% if form.password.errors %}
+            {{ form.password.errors }}
+        {% endif %}
+    </div>
+
+    {% if form.non_field_errors %}
+        <div class="help-text-block" style="color:#b91c1c;">
+            {{ form.non_field_errors }}
+        </div>
     {% endif %}
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Увійти</button>
-    </form>
+    <button type="submit" class="btn-primary">Увійти</button>
+</form>
 
-    <p>Не маєте акаунту? <a href="{% url 'register' %}">Зареєструватися</a></p>
-</body>
-</html>
+<div class="bottom-link">
+    Ще не зареєстровані? <a href="{% url 'register' %}">Створити акаунт</a>
+</div>
+{% endblock %}
