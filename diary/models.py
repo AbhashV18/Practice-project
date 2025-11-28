@@ -90,3 +90,4 @@ class Grade(models.Model):
 
     def __str__(self):
         return f"{self.student.username}: {self.subject} — {self.grade_value}"
+

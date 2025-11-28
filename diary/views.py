@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+
 from .models import Lesson, Grade
+
+from .models import Lesson
 
 
 @login_required
@@ -35,3 +38,4 @@ def grades_view(request):
         "subjects": subjects
     }
     return render(request, "diary/grades.html", context)
+
