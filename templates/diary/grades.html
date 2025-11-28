@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Мої оцінки | Щоденник студента{% endblock %}
+
+{% block content %}
+<div class="card">
+    <!-- Перемикач Розклад / Оцінки -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <div class="view-switch">
+            <a href="{% url 'schedule' %}" class="view-pill">Розклад</a>
+            <a href="{% url 'grades' %}" class="view-pill view-pill-active">Оцінки</a>
+        </div>
+    </div>
+
+    <h1>Мої оцінки</h1>
+    <p class="subtitle">
+        Перегляньте свої оцінки за предметами. 
+        Кольори допоможуть швидко зорієнтуватися: зелений — добре, жовтий — посередньо, червоний — треба підтягнутися.
+    </p>
+
+    {% if subjects %}
+        {% for subject, grades in subjects.items %}
+            <section class="subject-section">
+                <div class="subject-header-row">
+                    <div>
+                        <div class="subject-title">{{ subject.name }}</div>
+                        {% if subject.short_name %}
+                            <div class="subject-subtitle">{{ subject.short_name }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="subject-meta">
+                        Робіт: {{ grades|length }}
+                    </div>
+                </div>
+
+                <table class="grades-table">
+                    <thead>
+                    <tr>
+                        <th>Тип роботи</th>
+                        <th>Оцінка</th>
+                        <th>Дата</th>
+                        <th>Коментар</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for grade in grades %}
+                        <tr>
+                            <td>{{ grade.get_grade_type_display }}</td>
+                            <td>
+                                <span class="grade-badge
+                                    {% if grade.grade_value >= 10 %}
+                                        grade-good
+                                    {% elif grade.grade_value <= 3 %}
+                                        grade-bad
+                                    {% else %}
+                                        grade-ok
+                                    {% endif %}
+                                ">
+                                    {{ grade.grade_value }}
+                                </span>
+                            </td>
+                            <td>{{ grade.date }}</td>
+                            <td>{{ grade.comment|default:"—" }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        {% endfor %}
+    {% else %}
+        <p class="text-muted center" style="margin-top: 24px;">
+            Оцінок поки що немає. Як тільки викладач виставить першу — вона з’явиться тут.
+        </p>
+    {% endif %}
+
+    <div class="bottom-link center" style="margin-top: 22px;">
+        <a href="{% url 'schedule' %}" class="link-primary">Повернутися до розкладу</a>
+    </div>
+</div>
+{% endblock %}

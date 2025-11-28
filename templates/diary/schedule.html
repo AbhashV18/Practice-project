@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Мій розклад | Щоденник студента{% endblock %}
+
+{% block content %}
+<div class="card">
+    <!-- Перемикач Розклад / Оцінки -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <div class="view-switch">
+            <a href="{% url 'schedule' %}" class="view-pill view-pill-active">Розклад</a>
+            <a href="{% url 'grades' %}" class="view-pill">Оцінки</a>
+        </div>
+    </div>
+
+    <h1>Мій розклад</h1>
+    <p class="subtitle">Виберіть день тижня, щоб переглянути заняття.</p>
+
+    <!-- Піґулки днів тижня -->
+    <div style="display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap;">
+        {% for value, label in weekdays %}
+            <a href="{% url 'schedule' %}?day={{ value }}"
+               class="day-pill {% if value == current_day %}day-pill-active{% endif %}">
+                {{ label }}
+            </a>
+        {% endfor %}
+    </div>
+
+    <!-- Панель в стилі журналу оцінок -->
+    <section class="subject-section">
+        <div class="subject-header-row">
+            <div>
+                <div class="subject-title">
+                    Розклад на
+                    {% for value, label in weekdays %}
+                        {% if value == current_day %} {{ label }}{% endif %}
+                    {% endfor %}
+                </div>
+                <div class="subject-subtitle">
+                    Усі заняття на обраний день.
+                </div>
+            </div>
+            <div class="subject-meta">
+                Занять: {{ lessons|length }}
+            </div>
+        </div>
+
+        {% if lessons %}
+            <table class="grades-table">
+                <thead>
+                <tr>
+                    <th>Час</th>
+                    <th>Предмет</th>
+                    <th>Тип</th>
+                    <th>Аудиторія</th>
+                    <th>Викладач</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for lesson in lessons %}
+                    <tr>
+                        <td>{{ lesson.start_time }}–{{ lesson.end_time }}</td>
+                        <td>{{ lesson.subject }}</td>
+                        <td>{{ lesson.get_lesson_type_display }}</td>
+                        <td>{{ lesson.room|default:"—" }}</td>
+                        <td>{{ lesson.teacher|default:"—" }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-muted center" style="margin: 14px 0;">
+                На цей день занять поки що не додано.
+            </p>
+        {% endif %}
+    </section>
+
+    <div class="bottom-link center" style="margin-top:22px;">
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-primary" style="width:auto; padding:8px 16px;">
+                Вийти з акаунту
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

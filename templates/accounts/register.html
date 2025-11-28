@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Реєстрація | Щоденник студента{% endblock %}
+
+{% block content %}
+<h1>Реєстрація</h1>
+<p class="subtitle">Створіть обліковий запис, щоб користуватися студентським щоденником.</p>
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label for="{{ form.username.id_for_label }}">Логін</label>
+        {{ form.username }}
+        {% if form.username.errors %}
+            {{ form.username.errors }}
+        {% endif %}
+        <div class="help-text-block">
+            <span class="info-text">Вимоги до логіна:</span>
+            <ul>
+                <li>до 150 символів;</li>
+                <li>лише літери, цифри та символи <code>@</code>, <code>.</code>, <code>+</code>, <code>-</code>, <code>_</code>;</li>
+                <li>без пробілів.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.password1.id_for_label }}">Пароль</label>
+        {{ form.password1 }}
+        {% if form.password1.errors %}
+            {{ form.password1.errors }}
+        {% endif %}
+        <div class="help-text-block">
+            <span class="info-text">Вимоги до пароля:</span>
+            <ul>
+                <li>не менше 8 символів;</li>
+                <li>не має бути надто схожим на інші Ваші дані;</li>
+                <li>не може бути «поширеним» простим паролем;</li>
+                <li>не може складатися лише з цифр.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.password2.id_for_label }}">Підтвердження пароля</label>
+        {{ form.password2 }}
+        {% if form.password2.errors %}
+            {{ form.password2.errors }}
+        {% endif %}
+        <p class="info-text">Повторно введіть пароль для перевірки.</p>
+    </div>
+
+    <button type="submit" class="btn-primary">Створити акаунт</button>
+</form>
+
+<div class="bottom-link">
+    Вже маєте акаунт? <a href="{% url 'login' %}">Увійти</a>
+</div>
+{% endblock %}
