@@ -91,3 +91,34 @@ class Grade(models.Model):
     def __str__(self):
         return f"{self.student.username}: {self.subject} — {self.grade_value}"
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+
+class Homework(models.Model):
+    student = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='homeworks',
+        verbose_name='Студент'
+    )
+    subject = models.ForeignKey(
+        Subject,
+        on_delete=models.CASCADE,
+        related_name='homeworks',
+        verbose_name='Предмет'
+    )
+    title = models.CharField('Завдання', max_length=120)
+    description = models.TextField('Опис', blank=True)
+    due_date = models.DateField('Термін здачі')
+    is_done = models.BooleanField('Виконано', default=False)
+    created_at = models.DateTimeField('Створено', auto_now_add=True)
+
+    class Meta:
+        ordering = ['due_date']
+        verbose_name = 'Домашнє завдання'
+        verbose_name_plural = 'Домашні завдання'
+
+    def __str__(self):
+        return f'{self.subject} – {self.title}'

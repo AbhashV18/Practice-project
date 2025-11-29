@@ -4,18 +4,19 @@
 
 {% block content %}
 <div class="card">
-    <!-- Перемикач Розклад / Оцінки -->
+    <!-- Перемикач 3 вкладок -->
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
         <div class="view-switch">
             <a href="{% url 'schedule' %}" class="view-pill">Розклад</a>
             <a href="{% url 'grades' %}" class="view-pill view-pill-active">Оцінки</a>
+            <a href="{% url 'homework' %}" class="view-pill">Домашні завдання</a>
         </div>
     </div>
 
     <h1>Мої оцінки</h1>
     <p class="subtitle">
-        Перегляньте свої оцінки за предметами. 
-        Кольори допоможуть швидко зорієнтуватися: зелений — добре, жовтий — посередньо, червоний — треба підтягнутися.
+        Перегляньте свої оцінки за предметами.
+        Зелений — добре, жовтий — посередньо, червоний — треба підтягнутися.
     </p>
 
     {% if subjects %}
@@ -74,7 +75,7 @@
     {% endif %}
 
     <div class="bottom-link center" style="margin-top: 22px;">
-        <a href="{% url 'schedule' %}" class="link-primary">Повернутися до розкладу</a>
+        <a href="{% url 'schedule' %}" class="link-primary">Перейти до розкладу</a>
     </div>
 </div>
 {% endblock %}

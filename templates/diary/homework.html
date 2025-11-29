@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Домашні завдання | Щоденник студента{% endblock %}
+
+{% block content %}
+<div class="card">
+    <!-- Перемикач 3 вкладок -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <div class="view-switch">
+            <a href="{% url 'schedule' %}" class="view-pill">Розклад</a>
+            <a href="{% url 'grades' %}" class="view-pill">Оцінки</a>
+            <a href="{% url 'homework' %}" class="view-pill view-pill-active">Домашні завдання</a>
+        </div>
+    </div>
+
+    <h1>Домашні завдання</h1>
+    <p class="subtitle">
+        Тут відображаються ваші домашні завдання по предметах.
+        Червоний статус — потрібно виконати, зелений — завдання вже зроблене.
+    </p>
+
+    {% if subjects_homework %}
+        {% for subject, tasks in subjects_homework.items %}
+            <section class="subject-section">
+                <div class="subject-header-row">
+                    <div>
+                        <div class="subject-title">{{ subject.name }}</div>
+                        {% if subject.short_name %}
+                            <div class="subject-subtitle">{{ subject.short_name }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="subject-meta">
+                        Завдань: {{ tasks|length }}
+                    </div>
+                </div>
+
+                <table class="grades-table">
+                    <thead>
+                    <tr>
+                        <th>Завдання</th>
+                        <th>Термін здачі</th>
+                        <th>Статус</th>
+                        <th>Коментар</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for hw in tasks %}
+                        <tr>
+                            <td>{{ hw.title }}</td>
+                            <td>{{ hw.due_date }}</td>
+                            <td>
+                                {% if hw.is_done %}
+                                    <span class="grade-badge grade-good">Виконано</span>
+                                {% else %}
+                                    <span class="grade-badge grade-bad">Не виконано</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ hw.description|default:"—" }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        {% endfor %}
+    {% else %}
+        <p class="text-muted center" style="margin-top: 24px;">
+            Домашніх завдань поки що немає. Коли викладач додасть перше завдання — воно з’явиться тут.
+        </p>
+    {% endif %}
+
+    <div class="bottom-link center" style="margin-top:22px;">
+        <a href="{% url 'schedule' %}" class="link-primary">Перейти до розкладу</a>
+    </div>
+</div>
+{% endblock %}

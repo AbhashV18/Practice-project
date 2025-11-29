@@ -3,38 +3,33 @@
 {% block title %}Вхід | Щоденник студента{% endblock %}
 
 {% block content %}
-<h1>Вхід</h1>
-<p class="subtitle">Увійдіть до свого облікового запису.</p>
+<div class="card" style="max-width: 420px;">
+    <h1>Вхід</h1>
+    <p class="subtitle">
+        Увійдіть до свого акаунта, щоб переглянути розклад, оцінки та домашні завдання.
+    </p>
 
-<form method="post">
-    {% csrf_token %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
 
-    <div class="form-group">
-        <label for="{{ form.username.id_for_label }}">Логін</label>
-        {{ form.username }}
-        {% if form.username.errors %}
-            {{ form.username.errors }}
-        {% endif %}
-    </div>
-
-    <div class="form-group">
-        <label for="{{ form.password.id_for_label }}">Пароль</label>
-        {{ form.password }}
-        {% if form.password.errors %}
-            {{ form.password.errors }}
-        {% endif %}
-    </div>
-
-    {% if form.non_field_errors %}
-        <div class="help-text-block" style="color:#b91c1c;">
-            {{ form.non_field_errors }}
+        <div class="form-group" style="margin-bottom: 12px;">
+            <label for="id_username">Логін</label>
+            {{ form.username }}
         </div>
-    {% endif %}
 
-    <button type="submit" class="btn-primary">Увійти</button>
-</form>
+        <div class="form-group" style="margin-bottom: 16px;">
+            <label for="id_password">Пароль</label>
+            {{ form.password }}
+        </div>
 
-<div class="bottom-link">
-    Ще не зареєстровані? <a href="{% url 'register' %}">Створити акаунт</a>
+        <button type="submit" class="btn-primary" style="width: 100%;">
+            Увійти
+        </button>
+    </form>
+
+    <p class="text-muted center" style="margin-top: 16px; font-size: 14px;">
+        Якщо у вас ще немає акаунта, зверніться до адміністратора або викладача.
+    </p>
 </div>
 {% endblock %}

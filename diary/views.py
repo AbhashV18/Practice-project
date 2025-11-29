@@ -39,3 +39,25 @@ def grades_view(request):
     }
     return render(request, "diary/grades.html", context)
 
+from django.contrib.auth.decorators import login_required
+from .models import Homework, Subject
+from django.shortcuts import render
+
+
+@login_required
+def homework_view(request):
+    homeworks = (
+        Homework.objects
+        .filter(student=request.user)
+        .select_related('subject')
+        .order_by('subject__name', 'due_date')
+    )
+
+    subjects_homework = {}
+    for hw in homeworks:
+        subjects_homework.setdefault(hw.subject, []).append(hw)
+
+    context = {
+        'subjects_homework': subjects_homework,
+    }
+    return render(request, 'diary/homework.html', context)

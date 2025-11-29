@@ -21,3 +21,12 @@ class LessonAdmin(admin.ModelAdmin):
     list_display = ("subject", "weekday", "start_time", "end_time", "room", "teacher", "lesson_type")
     list_filter = ("weekday", "lesson_type", "subject")
     search_fields = ("subject__name", "teacher", "room")
+from .models import Homework
+from django.contrib import admin
+
+
+@admin.register(Homework)
+class HomeworkAdmin(admin.ModelAdmin):
+    list_display = ('title', 'subject', 'student', 'due_date', 'is_done')
+    list_filter = ('subject', 'is_done')
+    search_fields = ('title', 'description', 'student__username')
