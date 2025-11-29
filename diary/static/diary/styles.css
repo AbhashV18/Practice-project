@@ -1,0 +1,199 @@
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5fb;
+    color: #222;
+}
+
+
+.card {
+    max-width: 1100px;           
+    margin: 32px auto;
+    padding: 28px 36px 32px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+}
+
+
+.view-switch {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 10px;
+}
+
+.view-pill {
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #6b21a8;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+}
+
+.view-pill:hover {
+    border-bottom-color: rgba(107, 33, 168, 0.4);
+}
+
+.view-pill-active {
+    border-bottom-color: #6b21a8;
+}
+
+
+h1 {
+    margin: 8px 0 6px;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.subtitle {
+    margin: 0 0 18px;
+    font-size: 15px;
+    color: #6b7280;
+}
+
+
+.subject-section {
+    margin-top: 18px;
+    padding: 18px 20px 20px;
+    border-radius: 16px;
+    background: #faf7ff;
+    border: 1px solid #e5d9ff;
+}
+
+.subject-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+}
+
+.subject-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.subject-subtitle {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.subject-meta {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #9ca3af;
+}
+
+.grades-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+.grades-table thead th {
+    text-align: left;
+    padding: 10px 10px;
+    border-bottom: 1px solid #e5e7eb;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.grades-table tbody td {
+    padding: 10px 10px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.grade-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.grade-good {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.grade-ok {
+    background: #fef9c3;
+    color: #854d0e;
+}
+
+.grade-bad {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.hw-done {
+    background: #dcfce7;
+    color: #166534;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.hw-not {
+    background: #fee2e2;
+    color: #b91c1c;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+
+.day-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    text-decoration: none;
+    color: #4b5563;
+    background: #e5e7eb;
+    margin-right: 6px;
+    margin-bottom: 8px;
+}
+
+.day-pill-active {
+    background: #6b21a8;
+    color: #ffffff;
+}
+
+.center {
+    text-align: center;
+}
+
+.link-primary {
+    color: #6b21a8;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.link-primary:hover {
+    text-decoration: underline;
+}
+
+.btn-primary {
+    border: none;
+    background: #6b21a8;
+    color: #ffffff;
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    opacity: 0.92;
+}
